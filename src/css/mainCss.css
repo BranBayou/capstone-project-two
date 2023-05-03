@@ -1,6 +1,200 @@
-h1 {
+body {
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+/* General styles */
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+section {
+  padding: 20px;
+}
+
+input[type="text"],
+button {
+  font-size: 1rem;
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0062cc;
+}
+
+/* Search section */
+
+.search-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.search-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-form button:hover {
+  background-color: #0069d9;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Homepage section */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  align-items: center;
+  align-content: center;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.image-container:hover img {
+  transform: scale(1.1);
+}
+.title {
+  display: flex;
+  align-items: center; /* horizontally align the content of the title div */
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertically align the content of the comment div */
+  align-items: center;
+}
+h2 {
+  font-size: 1.5rem;
+  margin: 20px;
+}
+
+button {
+  border: none;
+  background-color: orange;
+  font-size: 1.2rem;
+  margin: 10px;
+  cursor: pointer;
+}
+
+button.like {
   color: red;
 }
-h3{
+
+button.comment {
   color: blue;
+}
+
+button.reserve {
+  color: green;
+}
+.like:hover, .comment:hover, .reserve:hover {
+  background-color: #e6e6e6;
+}
+
+.like:focus, .comment:focus, .reserve:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 767px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.content-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  align-content: center;
+}
+
+.image-container {
+  margin-right: 20px;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 10%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  
+}
+
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+footer h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }
