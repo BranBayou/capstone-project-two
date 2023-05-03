@@ -27,14 +27,21 @@ searchButton.addEventListener('click', () => {
     .catch((error) => console.error(error));
 });
 
-const homepage = document.getElementById('');
+// Get the section element from the HTML
+const section = document.getElementById('cards');
 
-fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata')
-  .then(response => response.json())
-  .then(data => {
-    data.meals.forEach(meal => {
-      const contentContainer = document.createElement('div');
-      contentContainer.classList.add('content-container');
+// Make a request to the API
+fetch('https://www.themealdb.com/api/json/v1/1/search.php?s')
+  .then((response) => response.json())
+  .then((data) => {
+    // Get the first six meals from the API
+    const meals = data.meals.slice(0, 6);
+
+    // Create a card for each meal
+    meals.forEach((meal) => {
+      // Create the elements for the card
+      const card = document.createElement('div');
+      card.classList.add('card');
 
       const imageContainer = document.createElement('div');
       imageContainer.classList.add('image-container');
@@ -43,41 +50,41 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata')
       image.src = meal.strMealThumb;
       image.alt = meal.strMeal;
 
-      const textContainer = document.createElement('div');
-      textContainer.classList.add('text-container');
+      const title = document.createElement('div');
+      title.classList.add('title');
 
-      const contentName = document.createElement('h3');
-      contentName.classList.add('content-name');
-      contentName.textContent = meal.strMeal;
-
-      const buttonContainer = document.createElement('div');
-      buttonContainer.classList.add('button-container');
+      const heading = document.createElement('h2');
+      heading.textContent = meal.strMeal;
 
       const likeButton = document.createElement('button');
-      likeButton.classList.add('like-button');
-      likeButton.textContent = 'Like';
+      likeButton.classList.add('like');
+      likeButton.textContent = '5 Likes';
+
+      const comments = document.createElement('div');
+      comments.classList.add('comments');
 
       const commentButton = document.createElement('button');
-      commentButton.classList.add('comment-button');
-      commentButton.textContent = 'Comment';
+      commentButton.classList.add('comment');
+      commentButton.textContent = 'Comments';
 
-      const reservationButton = document.createElement('button');
-      reservationButton.classList.add('reservation-button');
-      reservationButton.textContent = 'Reservation';
+      const reserveButton = document.createElement('button');
+      reserveButton.classList.add('reserve');
+      reserveButton.textContent = 'Reservations';
 
-      buttonContainer.appendChild(likeButton);
-      buttonContainer.appendChild(commentButton);
-      buttonContainer.appendChild(reservationButton);
-
-      textContainer.appendChild(contentName);
-      textContainer.appendChild(buttonContainer);
-
+      // Append the elements to the card
       imageContainer.appendChild(image);
+      title.appendChild(heading);
+      title.appendChild(likeButton);
+      comments.appendChild(commentButton);
+      comments.appendChild(reserveButton);
+      card.appendChild(imageContainer);
+      card.appendChild(title);
+      card.appendChild(comments);
 
-      contentContainer.appendChild(imageContainer);
-      contentContainer.appendChild(textContainer);
-
-      homepage.appendChild(contentContainer);
+      // Append the card to the section
+      section.appendChild(card);
     });
   })
-  .catch(error => console.error(error));
+  .catch((error) => {
+    console.error(error);
+  });
