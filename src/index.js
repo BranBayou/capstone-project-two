@@ -1,31 +1,10 @@
 import './css/mainCss.css';
+import './css/reservation.css';
+import { popupSection } from './modules/addShowComment'
 
 const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
 const searchResults = document.getElementById('search-results');
-
-searchButton.addEventListener('click', () => {
-  const query = searchInput.value;
-  const apiUrl = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`;
-
-  fetch(apiUrl)
-    .then((response) => response.json())
-    .then((data) => {
-      const { meals } = data;
-      if (meals) {
-        searchResults.innerHTML = meals.map((meal) => `
-          <div class="meal">
-            <h3>${meal.strMeal}</h3>
-            <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-            <p>${meal.strInstructions}</p>
-          </div>
-        `).join('');
-      } else {
-        searchResults.innerHTML = '<p>No meals found, try another search query.</p>';
-      }
-    })
-    .catch((error) => console.error(error));
-});
 
 // Get the section element from the HTML
 const section = document.getElementById('cards');
@@ -83,6 +62,45 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s')
 
       // Append the card to the section
       section.appendChild(card);
+      // popup window
+      const popupSection = document.createElement('section');
+      popupSection.setAttribute('id', 'popup-modal');
+      popupSection.classList.add('modal');
+      popupSection.innerHTML = `
+                                  <div class="popup-con">
+                                    <div class="top">
+                                      <span class="close">&times;</span>
+                                      <img class="popup-img" src="${meal.strMealThumb}" alt="">
+                                      <h2>${meal.strMeal}</h2>
+                                      <div class="meal-info"></div>
+                                    </div>
+                                    <div class="comment-list">
+                                      
+                                    </div>
+                                    <div class="bottom">
+                                      <h3>Add comment</h3>
+                                      <form action="" class="form">
+                                        <input type="text" placeholder="your name">
+                                        <input class="txt-area" type="text-area" placeholder="your insights">
+                                        <button class="add-comment" type="button">Add comment</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                  `;
+      document.body.appendChild(popupSection);
+
+      // Event listners for popup
+      const conBtns = document.getElementsByClassName('comment');
+      for (let i = 0; i < conBtns.length; i += 1) {
+        conBtns[i].addEventListener('click', (event) => {
+          event.preventDefault();
+          document.querySelector('.modal').style.display = 'block';
+        });
+      }
+      const closeBtn = document.querySelector('.close');
+      closeBtn.addEventListener('click', (event) => {
+        document.querySelector('.modal').style.display = 'none';
+      });
     });
   })
   .catch((error) => {

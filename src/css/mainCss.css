@@ -6,6 +6,31 @@ body {
   font-size: 16px;
 }
 
+/* Header styles */
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 5rem;
+  gap: 10rem;
+}
+
+.nav {
+  display: flex;
+  gap: 10rem;
+}
+
+.nav li {
+  list-style: none;
+}
+
+.nav li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 700;
+}
+
 /* General styles */
 
 h1, h2, h3 {
