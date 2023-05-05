@@ -59,7 +59,7 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s')
       section.appendChild(card);
       // popup window
       const popupSection = document.createElement('section');
-      popupSection.setAttribute('id', 'popup-modal');
+      popupSection.setAttribute('id', `popup-modal-${meal.idMeal}`);
       popupSection.classList.add('modal');
       popupSection.innerHTML = `
                                   <div class="popup-con">
@@ -82,19 +82,26 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s')
                                     </div>
                                   </div>
                                   `;
-      document.body.appendChild(popupSection);
+      card.appendChild(popupSection);
+
+      commentButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        document.getElementById(`popup-modal-${meal.idMeal}`).style.display = 'block';
+      })
 
       // Event listners for popup
-      const conBtns = document.getElementsByClassName('comment');
-      for (let i = 0; i < conBtns.length; i += 1) {
-        conBtns[i].addEventListener('click', (event) => {
-          event.preventDefault();
-          document.querySelector('.modal').style.display = 'block';
-        });
-      }
-      const closeBtn = document.querySelector('.close');
-      closeBtn.addEventListener('click', (event) => {
-        document.querySelector('.modal').style.display = 'none';
+      // const conBtns = document.getElementsByClassName('comment');
+      // for (let i = 0; i < conBtns.length; i += 1) {
+      //   conBtns[i].addEventListener('click', (event) => {
+      //     event.preventDefault();
+      //     document.getElementById(`popup-modal-${meal.idMeal}`).style.display = 'block';
+      //   });
+      // }
+      const closeBtn = document.querySelectorAll('.close');
+      closeBtn.forEach((btn)=>{
+        btn.addEventListener('click', () =>{
+          document.querySelector('.modal').style.display = 'none';
+        })
       });
     });
   })
