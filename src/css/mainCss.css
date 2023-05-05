@@ -1,0 +1,180 @@
+body {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+/* General styles */
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+section {
+  padding: 20px;
+}
+
+input[type="text"],
+button {
+  font-size: 1rem;
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+}
+
+button {
+  border: none;
+  background-color: hsla(59, 100%, 54%, 0.705);
+  font-size: 1.2rem;
+  margin: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0062cc;
+}
+
+/* Homepage section */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 40px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffff;
+  font-size: 16px;
+  border-radius: 0.6em;
+  box-shadow: 0 1.2em 2.5em rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  align-items: center;
+  align-content: center;
+  padding: 3em 2.8em;
+  width: 90%;
+  max-width: 32em;
+  position: relative;
+  transform: translateX(-50%);
+  left: 50%;
+  top: 0.5em;
+  margin: 1em;
+}
+
+.image-container {
+  margin-right: 20px;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 10%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.image-container:hover img {
+  transform: scale(1.1);
+}
+
+.title {
+  display: flex;
+  align-items: center; /* horizontally align the content of the title div */
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertically align the content of the comment div */
+  align-items: center;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 20px;
+}
+
+.like {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ff69b4; /* Choose a color that matches your design */
+  background-color: red;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.like:hover {
+  color: mediumslateblue; /* Choose a color that matches your design */
+}
+
+.like i {
+  margin-right: 5px;
+}
+
+.like-counter {
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #5dc92b; /* Choose a color that matches your design */
+}
+
+button.comment {
+  color: blue;
+}
+
+button.reserve {
+  color: green;
+}
+
+.like:hover,
+.comment:hover,
+.reserve:hover {
+  background-color: #e6e6e6;
+}
+
+.like:focus,
+.comment:focus,
+.reserve:focus {
+  outline: none;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  align-content: center;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+footer h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 767px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
