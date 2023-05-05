@@ -1,9 +1,9 @@
 import './css/mainCss.css';
 import './css/reservation.css';
+import { displayComments, postComment } from './modules/involvement';
 
 const mealsEndpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s';
 const likesEndpoint = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/MkVxBIukKyzNPTtQYW83/likes';
-const commentsEndpoint = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/MkVxBIukKyzNPTtQYW83/comments';
 const cardsContainer = document.getElementById('cards');
 
 async function updateLikes(mealId) {
@@ -108,24 +108,40 @@ fetch(mealsEndpoint)
                                       <h2>${meal.strMeal}</h2>
                                       <div class="meal-info"></div>
                                     </div>
-                                    <div class="comment-list">
+                                    <div class="comment-list" id="display-${meal.idMeal}">
+                                      <h3>Comments(0)</h3>
+                                      <div class="comments-container" id="container-${meal.idMeal}">
                                       
+                                      </div>
                                     </div>
                                     <div class="bottom">
                                       <h3>Add comment</h3>
-                                      <form action="" class="form">
-                                        <input type="text" placeholder="your name">
-                                        <input class="txt-area" type="text-area" placeholder="your insights">
-                                        <button class="add-comment" type="button">Add comment</button>
+                                      <form class="form">
+                                        <input type="text" id='customer_name_${meal.idMeal}' placeholder="your name">
+                                        <input class="txt-area" id ='customer_msg_${meal.idMeal}' type="text-area" placeholder="your insights">
+                                        <button class="add-comment" type="submit">Add comment</button>
                                       </form>
                                     </div>
                                   </div>
                                   `;
+
       document.body.appendChild(popupSection);
+      const form = popupSection.querySelector('form');
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+          const username = document.getElementById(`customer_name_${meal.idMeal}`).value;
+          const comment = document.getElementById(`customer_msg_${meal.idMeal}`).value;
+          postComment(meal.idMeal, username, comment).then(()=>{
+            displayComments(meal);
+          });
+          form.reset();
+      });
+
 
       commentBtn.addEventListener('click', (event) => {
         event.preventDefault();
         document.getElementById(`popup-modal-${meal.idMeal}`).style.display = 'block';
+        displayComments(meal);
       })
 
       // add click event listener to the like button
@@ -146,6 +162,7 @@ fetch(mealsEndpoint)
 
         })
       });
+
   })
   .catch((error) => {
     throw('Error fetching data:', error);

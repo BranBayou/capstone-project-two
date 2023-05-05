@@ -1,11 +1,13 @@
 import commentCounter from './commentCount.js';
 
-const appId = 'pgqQPEfft8XtKsYxgKvu';
+const appId = 'MkVxBIukKyzNPTtQYW83';
 const involvementUrl = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/';
 
-const postComment = async (mealId, username, comment) => {
+const postComment = async (mealId, name, comm) => {
   const url = `${involvementUrl}apps/${appId}/comments`;
-  const data = { item_id: `section-${mealId}`, username, comment };
+  console.log(name)
+  console.log(comm)
+  const data = { item_id: `section-${mealId}`, username: name, comment: comm };
 
   const response = await fetch(url, {
     method: 'POST',
@@ -19,23 +21,25 @@ const postComment = async (mealId, username, comment) => {
 };
 
 const displayComments = async (meal) => {
-  const commentDisplay = document.getElementById(`display-${meal.idCategory}`);
+  const commentDisplay = document.getElementById(`display-${meal.idMeal}`);
   const getComments = async (url) => {
     const response = await fetch(url);
     const commentArray = await response.json();
     return commentArray;
   };
 
-  const comments = await getComments(`${involvementUrl}apps/${appId}/comments?item_id=section-${meal.idCategory}`);
+  const comments = await getComments(`${involvementUrl}apps/${appId}/comments?item_id=section-${meal.idMeal}`);
 
-  const commentsContainer = document.getElementById(`container-${meal.idCategory}`);
+  const commentsContainer = document.getElementById(`container-${meal.idMeal}`);
   commentsContainer.innerHTML = '';
 
-  comments.forEach((element) => {
+  if(comments.length > 0){
+    comments.forEach((element) => {
     const comment = document.createElement('p');
     comment.innerHTML = `${element.creation_date} ${element.username}: ${element.comment}`;
     commentsContainer.appendChild(comment);
   });
-  commentDisplay.firstElementChild.textContent = `Comments (${commentCounter()})`;
+  }
+  commentDisplay.firstElementChild.textContent = `Comments (${commentCounter(meal)})`;
 };
 export { postComment, displayComments };
