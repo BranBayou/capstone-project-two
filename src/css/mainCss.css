@@ -8,7 +8,9 @@ body {
 
 /* General styles */
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin: 0;
 }
 
@@ -25,8 +27,10 @@ button {
 }
 
 button {
-  background-color: #007bff;
-  color: #fff;
+  border: none;
+  background-color: hsla(59, 100%, 54%, 0.705);
+  font-size: 1.2rem;
+  margin: 10px;
   cursor: pointer;
 }
 
@@ -61,19 +65,19 @@ button:hover {
   margin: 1em;
 }
 
-
 .image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  height: 200px;
+  margin-right: 20px;
+  width: 150px;
+  height: 150px;
   overflow: hidden;
+  border-radius: 10%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .image-container:hover img {
   transform: scale(1.1);
 }
+
 .title {
   display: flex;
   align-items: center; /* horizontally align the content of the title div */
@@ -85,6 +89,7 @@ button:hover {
   justify-content: center; /* vertically align the content of the comment div */
   align-items: center;
 }
+
 h2 {
   font-size: 1.5rem;
   margin: 20px;
@@ -118,14 +123,6 @@ h2 {
   color: #5dc92b; /* Choose a color that matches your design */
 }
 
-button {
-  border: none;
-  background-color: hsla(59, 100%, 54%, 0.705);
-  font-size: 1.2rem;
-  margin: 10px;
-  cursor: pointer;
-}
-
 button.comment {
   color: blue;
 }
@@ -133,11 +130,16 @@ button.comment {
 button.reserve {
   color: green;
 }
-.like:hover, .comment:hover, .reserve:hover {
+
+.like:hover,
+.comment:hover,
+.reserve:hover {
   background-color: #e6e6e6;
 }
 
-.like:focus, .comment:focus, .reserve:focus {
+.like:focus,
+.comment:focus,
+.reserve:focus {
   outline: none;
 }
 
@@ -147,16 +149,6 @@ button.reserve {
   align-items: center;
   margin-bottom: 20px;
   align-content: center;
-}
-
-.image-container {
-  margin-right: 20px;
-  width: 150px;
-  height: 150px;
-  overflow: hidden;
-  border-radius: 10%;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  
 }
 
 footer {
@@ -180,6 +172,7 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+
 @media screen and (max-width: 767px) {
   .cards {
     grid-template-columns: 1fr;
