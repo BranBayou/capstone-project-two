@@ -34,51 +34,6 @@ button:hover {
   background-color: #0062cc;
 }
 
-/* Search section */
-
-.search-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 10vh;
-}
-
-.search-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.search-form input {
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.search-form button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.search-form button:hover {
-  background-color: #0069d9;
-}
-
-.error-message {
-  color: red;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
 /* Homepage section */
 .cards {
   display: grid;
@@ -135,16 +90,40 @@ h2 {
   margin: 20px;
 }
 
+.like {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ff69b4; /* Choose a color that matches your design */
+  background-color: red;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.like:hover {
+  color: mediumslateblue; /* Choose a color that matches your design */
+}
+
+.like i {
+  margin-right: 5px;
+}
+
+.like-counter {
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #5dc92b; /* Choose a color that matches your design */
+}
+
 button {
   border: none;
-  background-color: orange;
+  background-color: hsla(59, 100%, 54%, 0.705);
   font-size: 1.2rem;
   margin: 10px;
   cursor: pointer;
-}
-
-button.like {
-  color: red;
 }
 
 button.comment {

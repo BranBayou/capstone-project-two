@@ -1,35 +1,43 @@
 import './css/mainCss.css';
 
-// const searchInput = document.getElementById('search-input');
-// const searchButton = document.getElementById('search-button');
-// const searchResults = document.getElementById('search-results');
-
-// searchButton.addEventListener('click', () => {
-//   const query = searchInput.value;
-//   const apiUrl = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`;
-
-//   fetch(apiUrl)
-//     .then((response) => response.json())
-//     .then((data) => {
-//       const { meals } = data;
-//       if (meals) {
-//         searchResults.innerHTML = meals.map((meal) => `
-//           <div class="meal">
-//             <h3>${meal.strMeal}</h3>
-//             <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-//             <p>${meal.strInstructions}</p>
-//           </div>
-//         `).join('');
-//       } else {
-//         searchResults.innerHTML = '<p>No meals found, try another search query.</p>';
-//       }
-//     })
-//     .catch((error) => console.error(error));
-// });
-
 const mealsEndpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s';
-const mealDetailsEndpoint = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+const likesEndpoint = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/MkVxBIukKyzNPTtQYW83/likes';
 const cardsContainer = document.getElementById('cards');
+
+async function updateLikes(mealId) {
+  try {
+    await fetch(likesEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify({ item_id: mealId }),
+    });
+  } catch (error) {
+    error('Error updating likes:', error);
+  }
+}
+async function getLikes(mealId, spanel) {
+  try {
+    const response = await fetch(likesEndpoint);
+    const data = await response.json();
+    Array.from(data).forEach((el) => {
+      if (el.item_id === mealId) {
+        const countOfLikes = el.likes;
+        if (countOfLikes === 1) {
+          spanel.innerHTML = `${countOfLikes} like`;
+        } else if (countOfLikes === 0) {
+          spanel.innerHTML = '0 likes';
+        } else {
+          spanel.innerHTML = `${countOfLikes} likes`;
+        }
+      }
+    });
+    // console.log(data);
+  } catch (error) {
+    error('Error updating likes:', error);
+  }
+}
 
 fetch(mealsEndpoint)
   .then((response) => response.json())
@@ -57,12 +65,11 @@ fetch(mealsEndpoint)
 
       const likeBtn = document.createElement('button');
       likeBtn.className = 'like';
-      likeBtn.textContent = 'Likes';
+      likeBtn.innerHTML = '<i class="fa-solid fa-heart"></i>';
 
       const likeCounter = document.createElement('span');
       likeCounter.className = 'like-counter';
-      likeCounter.textContent = 'Loading...'; // show a loading message while fetching the likes counter
-
+      // likeCounter.textContent = 'Loading...';
       title.appendChild(heading);
       title.appendChild(likeBtn);
       title.appendChild(likeCounter);
@@ -87,18 +94,17 @@ fetch(mealsEndpoint)
 
       cardsContainer.appendChild(card);
 
-      // make a request to get the meal details, including the likes counter
-      fetch(`${mealDetailsEndpoint}${meal.idMeal}`)
-        .then((response) => response.json())
-        .then((data) => {
-          likeCounter.textContent = data.meals[0].strInstructions.match(/\d+/)[0]; // extract the number of likes from the instructions text
-        })
-        .catch((error) => {
-          console.error('Error fetching meal details:', error);
-          likeCounter.textContent = 'N/A'; // show "N/A" if there was an error fetching the likes counter
-        });
+      // add click event listener to the like button
+      getLikes(meal.idMeal, likeCounter);
+
+      likeBtn.addEventListener('click', async () => {
+        // increment the like counter
+        likeCounter.textContent = parseInt(likeCounter.textContent, 10) + 1;
+        await updateLikes(meal.idMeal);
+        getLikes(meal.idMeal, likeCounter);
+      });
     });
   })
   .catch((error) => {
-    console.error('Error fetching data:', error);
+    error('Error fetching data:', error);
   });
