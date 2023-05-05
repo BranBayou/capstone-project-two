@@ -65,7 +65,7 @@ fetch(mealsEndpoint)
 
       const likeBtn = document.createElement('button');
       likeBtn.className = 'like';
-      likeBtn.innerHTML = '<i class="fa-solid fa-heart"></i>';
+      likeBtn.innerHTML = '<i class="fas-solid fa-heart"></i>';
 
       const likeCounter = document.createElement('span');
       likeCounter.className = 'like-counter';
