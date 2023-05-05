@@ -1,56 +1,95 @@
 import './css/mainCss.css';
 import './css/reservation.css';
 
-// Get the section element from the HTML
-const section = document.getElementById('cards');
+const mealsEndpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s';
+const likesEndpoint = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/MkVxBIukKyzNPTtQYW83/likes';
+const commentsEndpoint = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/MkVxBIukKyzNPTtQYW83/comments';
+const cardsContainer = document.getElementById('cards');
 
-// Make a request to the API
-fetch('https://www.themealdb.com/api/json/v1/1/search.php?s')
+async function updateLikes(mealId) {
+  try {
+    await fetch(likesEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify({ item_id: mealId }),
+    });
+  } catch (error) {
+    error('Error updating likes:', error);
+  }
+}
+async function getLikes(mealId, spanel) {
+  try {
+    const response = await fetch(likesEndpoint);
+    const data = await response.json();
+    Array.from(data).forEach((el) => {
+      if (el.item_id === mealId) {
+        const countOfLikes = el.likes;
+        if (countOfLikes === 1) {
+          spanel.innerHTML = `${countOfLikes} like`;
+        } else if (countOfLikes === 0) {
+          spanel.innerHTML = '0 likes';
+        } else {
+          spanel.innerHTML = `${countOfLikes} likes`;
+        }
+      }
+    });
+    // console.log(data);
+  } catch (error) {
+    error('Error updating likes:', error);
+  }
+}
+
+fetch(mealsEndpoint)
   .then((response) => response.json())
   .then((data) => {
-    // Get the first six meals from the API
-    const meals = data.meals.slice(0, 6);
+    const meals = data.meals.slice(0, 6); // get the first 6 meals from the data
 
-    // Create a card for each meal
     meals.forEach((meal) => {
-      // Create the elements for the card
       const card = document.createElement('div');
-      card.classList.add('card');
+      card.className = 'card';
 
       const imageContainer = document.createElement('div');
-      imageContainer.classList.add('image-container');
+      imageContainer.className = 'image-container';
 
       const image = document.createElement('img');
       image.src = meal.strMealThumb;
       image.alt = meal.strMeal;
 
+      imageContainer.appendChild(image);
+
       const title = document.createElement('div');
-      title.classList.add('title');
+      title.className = 'title';
 
       const heading = document.createElement('h2');
       heading.textContent = meal.strMeal;
 
-      const likeButton = document.createElement('button');
-      likeButton.classList.add('like');
-      likeButton.textContent = '5 Likes';
+      const likeBtn = document.createElement('button');
+      likeBtn.className = 'like';
+      likeBtn.innerHTML = '<i class="fa-solid fa-heart"></i>';
+
+      const likeCounter = document.createElement('span');
+      likeCounter.className = 'like-counter';
+      // likeCounter.textContent = 'Loading...';
+      title.appendChild(heading);
+      title.appendChild(likeBtn);
+      title.appendChild(likeCounter);
 
       const comments = document.createElement('div');
-      comments.classList.add('comments');
+      comments.className = 'comments';
 
-      const commentButton = document.createElement('button');
-      commentButton.classList.add('comment');
-      commentButton.textContent = 'Comments';
+      const commentBtn = document.createElement('button');
+      commentBtn.className = 'comment';
+      commentBtn.textContent = 'Comments';
 
-      const reserveButton = document.createElement('button');
-      reserveButton.classList.add('reserve');
-      reserveButton.textContent = 'Reservations';
+      const reserveBtn = document.createElement('button');
+      reserveBtn.className = 'reserve';
+      reserveBtn.textContent = 'Reservations';
 
-      // Append the elements to the card
-      imageContainer.appendChild(image);
-      title.appendChild(heading);
-      title.appendChild(likeButton);
-      comments.appendChild(commentButton);
-      comments.appendChild(reserveButton);
+      comments.appendChild(commentBtn);
+      comments.appendChild(reserveBtn);
+
       card.appendChild(imageContainer);
       card.appendChild(title);
       card.appendChild(comments);
@@ -88,6 +127,17 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s')
         event.preventDefault();
         document.getElementById(`popup-modal-${meal.idMeal}`).style.display = 'block';
       })
+      cardsContainer.appendChild(card);
+
+      // add click event listener to the like button
+      getLikes(meal.idMeal, likeCounter);
+
+      likeBtn.addEventListener('click', async () => {
+        // increment the like counter
+        likeCounter.textContent = parseInt(likeCounter.textContent, 10) + 1;
+        await updateLikes(meal.idMeal);
+        getLikes(meal.idMeal, likeCounter);
+      });
     });
           const closeBtn = document.querySelectorAll('.close');
       closeBtn.forEach((btn)=>{
@@ -99,5 +149,5 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s')
       });
   })
   .catch((error) => {
-    console.error(error);
+    error('Error fetching data:', error);
   });
