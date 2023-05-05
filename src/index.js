@@ -87,7 +87,7 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s')
       commentButton.addEventListener('click', (event) => {
         event.preventDefault();
         document.getElementById(`popup-modal-${meal.idMeal}`).style.display = 'block';
-      })
+      });
 
       // Event listners for popup
       // const conBtns = document.getElementsByClassName('comment');
@@ -98,13 +98,13 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s')
       //   });
       // }
       const closeBtn = document.querySelectorAll('.close');
-      closeBtn.forEach((btn)=>{
-        btn.addEventListener('click', () =>{
+      closeBtn.forEach((btn) => {
+        btn.addEventListener('click', () => {
           document.querySelector('.modal').style.display = 'none';
-        })
+        });
       });
     });
   })
   .catch((error) => {
-    console.error(error);
+    error(error);
   });

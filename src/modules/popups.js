@@ -1,9 +1,9 @@
 export default (meal) => {
   const popupSection = document.createElement('section');
-      popupSection.setAttribute('id', `popup-modal-${meal.idMeal}`);
-      popupSection.classList.add('modal');
-      popupSection.classList.add('hidden');
-      popupSection.innerHTML = `
+  popupSection.setAttribute('id', `popup-modal-${meal.idMeal}`);
+  popupSection.classList.add('modal');
+  popupSection.classList.add('hidden');
+  popupSection.innerHTML = `
                                   <div class="popup-con">
                                     <div class="top">
                                       <span class="close">&times;</span>
@@ -24,5 +24,5 @@ export default (meal) => {
                                     </div>
                                   </div>
                                   `;
-return popupSection;
+  return popupSection;
 };
