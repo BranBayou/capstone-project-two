@@ -1,10 +1,5 @@
 import './css/mainCss.css';
 import './css/reservation.css';
-import { popupSection } from './modules/addShowComment'
-
-const searchInput = document.getElementById('search-input');
-const searchButton = document.getElementById('search-button');
-const searchResults = document.getElementById('search-results');
 
 // Get the section element from the HTML
 const section = document.getElementById('cards');
