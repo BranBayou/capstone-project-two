@@ -16,7 +16,7 @@ async function updateLikes(mealId) {
       body: JSON.stringify({ item_id: mealId }),
     });
   } catch (error) {
-    error('Error updating likes:', error);
+    throw('Error updating likes:', error);
   }
 }
 async function getLikes(mealId, spanel) {
@@ -37,7 +37,7 @@ async function getLikes(mealId, spanel) {
     });
     // console.log(data);
   } catch (error) {
-    error('Error updating likes:', error);
+    throw('Error updating likes:', error);
   }
 }
 
@@ -93,9 +93,9 @@ fetch(mealsEndpoint)
       card.appendChild(imageContainer);
       card.appendChild(title);
       card.appendChild(comments);
-
+      
       // Append the card to the section
-      section.appendChild(card);
+      cardsContainer.appendChild(card);
       // popup window
       const popupSection = document.createElement('section');
       popupSection.setAttribute('id', `popup-modal-${meal.idMeal}`);
@@ -123,11 +123,10 @@ fetch(mealsEndpoint)
                                   `;
       document.body.appendChild(popupSection);
 
-      commentButton.addEventListener('click', (event) => {
+      commentBtn.addEventListener('click', (event) => {
         event.preventDefault();
         document.getElementById(`popup-modal-${meal.idMeal}`).style.display = 'block';
       })
-      cardsContainer.appendChild(card);
 
       // add click event listener to the like button
       getLikes(meal.idMeal, likeCounter);
@@ -149,5 +148,5 @@ fetch(mealsEndpoint)
       });
   })
   .catch((error) => {
-    error('Error fetching data:', error);
+    throw('Error fetching data:', error);
   });
