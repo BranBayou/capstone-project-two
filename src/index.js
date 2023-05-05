@@ -82,28 +82,21 @@ fetch('https://www.themealdb.com/api/json/v1/1/search.php?s')
                                     </div>
                                   </div>
                                   `;
-      card.appendChild(popupSection);
+      document.body.appendChild(popupSection);
 
       commentButton.addEventListener('click', (event) => {
         event.preventDefault();
         document.getElementById(`popup-modal-${meal.idMeal}`).style.display = 'block';
       })
-
-      // Event listners for popup
-      // const conBtns = document.getElementsByClassName('comment');
-      // for (let i = 0; i < conBtns.length; i += 1) {
-      //   conBtns[i].addEventListener('click', (event) => {
-      //     event.preventDefault();
-      //     document.getElementById(`popup-modal-${meal.idMeal}`).style.display = 'block';
-      //   });
-      // }
-      const closeBtn = document.querySelectorAll('.close');
+    });
+          const closeBtn = document.querySelectorAll('.close');
       closeBtn.forEach((btn)=>{
         btn.addEventListener('click', () =>{
-          document.querySelector('.modal').style.display = 'none';
+          const modals = document.querySelectorAll('.modal')
+          modals.forEach((modal) => modal.style.display = 'none')
+
         })
       });
-    });
   })
   .catch((error) => {
     console.error(error);
