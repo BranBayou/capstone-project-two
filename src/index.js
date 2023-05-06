@@ -163,5 +163,5 @@ fetch(mealsEndpoint)
     });
   })
   .catch((error) => {
-    error('Error fetching data:', error);
+    throw ('Error fetching data:', error);
   });

@@ -1,0 +1,35 @@
+[33mcommit 2d0cc26e68ca4469595bb1a043391cb06f0203a5[m[33m ([m[1;36mHEAD -> [m[1;32mlikescounter[m[33m, [m[1;31morigin/project-setup[m[33m, [m[1;31morigin/likescounter[m[33m, [m[1;31morigin/comment-popup[m[33m, [m[1;32mproject-setup[m[33m, [m[1;32mlike-counter[m[33m)[m
+Author: BezzB <118984781+BezzB@users.noreply.github.com>
+Date:   Wed May 3 18:19:39 2023 +0300
+
+    Update index.html
+
+[33mcommit a81bd68fe3187792d6344c968e72370f2dee05a8[m
+Author: BezzB <118984781+BezzB@users.noreply.github.com>
+Date:   Wed May 3 17:41:26 2023 +0300
+
+    Update css
+
+[33mcommit 3d4ecd713f7c1199aa99701d724089317032e13c[m
+Author: BezzB <118984781+BezzB@users.noreply.github.com>
+Date:   Wed May 3 13:02:46 2023 +0300
+
+    Update css and html
+
+[33mcommit d803753b86a8e35e3ecefcf2558942f3e90f96bf[m
+Author: BezzB <118984781+BezzB@users.noreply.github.com>
+Date:   Tue May 2 18:12:12 2023 +0300
+
+    Update index.html
+
+[33mcommit 0680bd23e806a854029ed274a3145097f089ebaa[m[33m ([m[1;31morigin/homepage-popup-api[m[33m)[m
+Author: BranBayou <berhan.baye@gmail.com>
+Date:   Tue May 2 16:02:15 2023 +0300
+
+    Add jest testing package manager
+
+[33mcommit 61cb8f13dc777e670e933961f8ac8b80cd09dbb8[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/dev[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mdev[m[33m)[m
+Author: Berhanu Baye <berhan.baye@gmail.com>
+Date:   Mon May 1 09:19:55 2023 +0300
+
+    Initial commit
