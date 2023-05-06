@@ -3,4 +3,5 @@ const commentCounter = (meal) => {
   return commentItems.length;
 };
 
-export default commentCounter;
+// eslint-disable-next-line import/prefer-default-export
+export { commentCounter };

@@ -1,14 +1,36 @@
-const commentCounter = require('./commentCount.js');
+import { commentCounter } from './commentCount.js';
 
-describe('commentCounter', (meal) => {
-  test('displays the correct comment count', () => {
-    // Arrange
-    const comments = ['Comment 1', 'Comment 2', 'Comment 3'];
+const jsdom = require('jsdom');
 
-    // Act
-    commentCounter(comments);
+const { JSDOM } = jsdom;
 
-    // Assert
-    expect(document.querySelectorAll(`#container-${meal.idMeal} > p`).textContent).toBe('3');
+describe('commentCounter', () => {
+  let dom;
+  beforeEach(() => {
+    dom = new JSDOM(`
+      <div id="container-1">
+        <p>Comment 1</p>
+        <p>Comment 2</p>
+        <p>Comment 3</p>
+      </div>
+      <div id="container-2">
+        <p>Comment 4</p>
+        <p>Comment 5</p>
+      </div>
+    `);
+    global.document = dom.window.document;
+  });
+  afterEach(() => {
+    dom.window.document.body.innerHTML = '';
+  });
+  test('returns the correct number of comments for a given meal', () => {
+    const meal = { idMeal: 1 };
+    const commentCount = commentCounter(meal);
+    expect(commentCount).toBe(3);
+  });
+  test('returns 0 if no comments are found for a given meal', () => {
+    const meal = { idMeal: 3 };
+    const commentCount = commentCounter(meal);
+    expect(commentCount).toBe(0);
   });
 });
