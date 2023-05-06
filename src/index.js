@@ -1,4 +1,6 @@
 import './css/mainCss.css';
+import './css/reservation.css';
+import { displayComments, postComment } from './modules/involvement.js';
 
 const mealsEndpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s';
 const likesEndpoint = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/MkVxBIukKyzNPTtQYW83/likes';
@@ -14,7 +16,7 @@ async function updateLikes(mealId) {
       body: JSON.stringify({ item_id: mealId }),
     });
   } catch (error) {
-    error('Error updating likes:', error);
+    throw ('Error updating likes:', error);
   }
 }
 async function getLikes(mealId, spanel) {
@@ -35,7 +37,7 @@ async function getLikes(mealId, spanel) {
     });
     // console.log(data);
   } catch (error) {
-    error('Error updating likes:', error);
+    throw ('Error updating likes:', error);
   }
 }
 
@@ -65,7 +67,7 @@ fetch(mealsEndpoint)
 
       const likeBtn = document.createElement('button');
       likeBtn.className = 'like';
-      likeBtn.innerHTML = '<i class="fa-solid fa-heart"></i>';
+      likeBtn.innerHTML = '<span class="material-symbols-outlined">thumb_up</span>';
 
       const likeCounter = document.createElement('span');
       likeCounter.className = 'like-counter';
@@ -92,7 +94,54 @@ fetch(mealsEndpoint)
       card.appendChild(title);
       card.appendChild(comments);
 
+      // Append the card to the section
       cardsContainer.appendChild(card);
+      // popup window
+      const popupSection = document.createElement('section');
+      popupSection.setAttribute('id', `popup-modal-${meal.idMeal}`);
+      popupSection.classList.add('modal');
+      popupSection.innerHTML = `
+                                  <div class="popup-con">
+                                    <div class="top">
+                                      <span class="close">&times;</span>
+                                      <img class="popup-img" src="${meal.strMealThumb}" alt="">
+                                      <h2>${meal.strMeal}</h2>
+                                      <div class="meal-info"></div>
+                                    </div>
+                                    <div class="comment-list" id="display-${meal.idMeal}">
+                                      <h3>Comments(0)</h3>
+                                      <div class="comments-container" id="container-${meal.idMeal}">
+                                      
+                                      </div>
+                                    </div>
+                                    <div class="bottom">
+                                      <h3>Add comment</h3>
+                                      <form class="form">
+                                        <input type="text" id='customer_name_${meal.idMeal}' placeholder="your name">
+                                        <input class="txt-area" id ='customer_msg_${meal.idMeal}' type="text-area" placeholder="your insights">
+                                        <button class="add-comment" type="submit">Add comment</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                  `;
+
+      document.body.appendChild(popupSection);
+      const form = popupSection.querySelector('form');
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const username = document.getElementById(`customer_name_${meal.idMeal}`).value;
+        const comment = document.getElementById(`customer_msg_${meal.idMeal}`).value;
+        postComment(meal.idMeal, username, comment).then(() => {
+          displayComments(meal);
+        });
+        form.reset();
+      });
+
+      commentBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        document.getElementById(`popup-modal-${meal.idMeal}`).style.display = 'block';
+        displayComments(meal);
+      });
 
       // add click event listener to the like button
       getLikes(meal.idMeal, likeCounter);
@@ -104,7 +153,15 @@ fetch(mealsEndpoint)
         getLikes(meal.idMeal, likeCounter);
       });
     });
+    const closeBtn = document.querySelectorAll('.close');
+    closeBtn.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const modals = document.querySelectorAll('.modal');
+        // eslint-disable-next-line no-return-assign
+        modals.forEach((modal) => modal.style.display = 'none');
+      });
+    });
   })
   .catch((error) => {
-    error('Error fetching data:', error);
+    throw ('Error fetching data:', error);
   });

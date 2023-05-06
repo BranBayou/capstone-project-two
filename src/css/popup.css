@@ -1,0 +1,69 @@
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup-con {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  height: 95%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: scroll;
+}
+
+/* Close Button */
+.close {
+  align-self: end;
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.meal-info li {
+  list-style-type: none;
+}
+
+.bottom .form {
+  display: flex;
+  flex-direction: column;
+}
+
+.txt-area {
+  height: 8vh;
+}
+
+.popup-con .top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup-img {
+  width: 70%;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
