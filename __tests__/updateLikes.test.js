@@ -9,7 +9,7 @@ beforeEach(() => {
     `;
 });
 beforeEach(() => {
-    document.body.innerHTML = `
+  document.body.innerHTML = `
         <a href="" class="menu-link" >
           Movies<span id="shows-count"></span>
         </a>
@@ -19,4 +19,4 @@ beforeEach(() => {
           <div class="show-card"></div>
         </div>
     `;
-  });
+});
