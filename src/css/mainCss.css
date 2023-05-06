@@ -57,6 +57,28 @@ h3 {
   margin: 0;
 }
 
+/* Style for the list item */
+li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+/* Style for the link */
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+/* Style for the meal counter */
+#meal-counter {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 0.8em;
+  color: #999;
+  font-weight: bold;
+}
+
+
 section {
   padding: 20px;
 }
