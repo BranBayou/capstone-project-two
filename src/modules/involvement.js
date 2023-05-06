@@ -1,4 +1,4 @@
-import commentCounter from './commentCount.js';
+import { commentCounter } from './commentCount.js';
 
 const appId = 'MkVxBIukKyzNPTtQYW83';
 const involvementUrl = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/';
