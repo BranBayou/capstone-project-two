@@ -164,7 +164,6 @@ button.like {
   font-size: 16px;
   font-weight: bold;
   color: #ff69b4; /* Choose a color that matches your design */
-  background-color: red;
   border: none;
   cursor: pointer;
   transition: color 0.2s ease-in-out;
