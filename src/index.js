@@ -98,6 +98,7 @@ fetch(mealsEndpoint)
       // Append the card to the section
       cardsContainer.appendChild(card);
       // popup window
+      mealCounter(meal);
 
       const popupSection = document.createElement('section');
       popupSection.setAttribute('id', `popup-modal-${meal.idMeal}`);

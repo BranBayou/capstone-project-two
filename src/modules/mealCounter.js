@@ -1,9 +1,14 @@
 const mealCounter = () => {
-  const itemCounter = document.querySelectorAll('.cards');
+  const itemCounter = document.querySelectorAll('.card');
   const counter = document.getElementById('meal-counter');
-  counter.innerText = itemCounter.length;
-  return itemCounter.length;
-  mealCounter(meal);
+
+  let count = 0;
+  itemCounter.forEach(() => {
+    count += 1;
+  });
+
+  counter.textContent = count;
+  return count;
 };
 
 // eslint-disable-next-line import/prefer-default-export
