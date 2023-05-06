@@ -1,6 +1,7 @@
 import './css/mainCss.css';
 import './css/reservation.css';
 import { displayComments, postComment } from './modules/involvement.js';
+import { mealCounter } from './modules/mealCounter.js';
 
 const mealsEndpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s';
 const likesEndpoint = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/MkVxBIukKyzNPTtQYW83/likes';
@@ -97,6 +98,7 @@ fetch(mealsEndpoint)
       // Append the card to the section
       cardsContainer.appendChild(card);
       // popup window
+
       const popupSection = document.createElement('section');
       popupSection.setAttribute('id', `popup-modal-${meal.idMeal}`);
       popupSection.classList.add('modal');
